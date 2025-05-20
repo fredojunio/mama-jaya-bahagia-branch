@@ -603,26 +603,35 @@ export default {
     },
     totalTonnage(rit) {
       var totalTonnage = 0;
-      rit.transactions.forEach((element) => {
-        totalTonnage += element.tonnage;
+      // rit.transactions.forEach((element) => {
+      //   totalTonnage += element.tonnage;
+      // });
+      rit.reports.forEach((element) => {
+        totalTonnage += element.tonnage_sold;
       });
       return totalTonnage;
     },
     totalRevenue(rit) {
       var totalRevenue = 0;
-      rit.transactions.forEach((element) => {
-        totalRevenue += element.total_price;
+      // rit.transactions.forEach((element) => {
+      //   totalRevenue += element.total_price;
+      // });
+      rit.reports.forEach((element) => {
+        totalRevenue += element.tonnage_sold_price;
       });
       return totalRevenue;
     },
     totalProfit(rit) {
-      var totalProfit = 0;
-      rit.transactions.forEach((element) => {
-        totalProfit += parseInt(element.total_price);
-        totalProfit -= parseInt(element.tonnage) * parseInt(rit.buy_price);
-        totalProfit -= parseInt(element.tonnage) * 200;
-      });
-      return totalProfit;
+      // var totalProfit = 0;
+      // rit.transactions.forEach((element) => {
+      //   totalProfit += parseInt(element.total_price);
+      //   totalProfit -= parseInt(element.tonnage) * parseInt(rit.buy_price);
+      // totalProfit -= parseInt(element.tonnage) * 200;
+      // });
+
+      return this.totalRevenue(rit) - rit.arrived_tonnage * rit.buy_price;
+
+      // return totalProfit;
     },
     openRitDetail(rit) {
       this.selectedRit = rit;
